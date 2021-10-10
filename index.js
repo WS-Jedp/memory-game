@@ -131,7 +131,7 @@ function CurrentTry() {
     setTimeout(() => {
         firstCard.classList.add('card--hide')
         secondCard.classList.add('card--hide')
-    }, 500)
+    }, AWAITING_TIME)
 
     
     return false
