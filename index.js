@@ -52,6 +52,25 @@ GAME_CONTAINER.childNodes.forEach(card => {
     card.addEventListener('click', selectCard)    
 })
 
+// --------------------------------------- 
+// ------------- CARD METHODS ------------
+// ---------------------------------------
+
+function hideCard(card) {
+    card.classList.remove('card--show')
+    card.classList.add('card--hide')
+}
+
+function showCard(card) {
+    card.classList.remove('card--hide')
+    card.classList.add('card--show')
+}
+
+function guessedCard(card) {
+    card.classList.add('card--guesed')
+    card.dataset.guessed = true
+}
+
 
 // --------------------------------------- 
 // ------------- GAME LOGIC --------------
@@ -79,13 +98,11 @@ function selectCard(ev) {
 
     // Identify if the user selects the same card
     if(currentCards[0] == card) {
-        card.classList.remove('card--show')
-        card.classList.add('card--hide')
+        hideCard(card)
         return false
     }
     
-    card.classList.remove('card--hide')
-    card.classList.add('card--show')
+    showCard(card)
 
     if(!isCardSelected) {
         currentCards[0] = card
@@ -114,10 +131,12 @@ function CurrentTry() {
     let isCorrect = Number(firstCard.dataset.value) === Number(secondCard.dataset.value)
 
     if(isCorrect) {
-        firstCard.classList.add('card--show', 'card--guessed')
-        firstCard.dataset.guessed = true
-        secondCard.classList.add('card--show', 'card--guessed')
-        secondCard.dataset.guessed = true
+
+        showCard(firstCard)
+        guessedCard(firstCard)
+        showCard(secondCard)
+        guessedCard(secondCard)
+
         resetTry()
         userWin()
         return true
